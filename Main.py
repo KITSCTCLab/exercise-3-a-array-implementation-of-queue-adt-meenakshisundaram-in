@@ -22,13 +22,17 @@ class Solution:
         self.rear = -1
         self.front = -1
 
-    def is_stack_empty(self):
+    def is_stack_empty(self): 
         """
         Check whether the stack is empty.
         Returns:
           True if it is empty, else returns False.
         """
         # Write your code here
+        if self.top==-1:
+            return True
+        else:
+            return False
 
     def is_queue_empty(self):
         """
@@ -37,6 +41,10 @@ class Solution:
           True if it is empty, else returns False.
         """
         # Write your code here
+        if self.rear == self.top == -1:
+            return True
+        else:
+            return False
 
     def is_stack_full(self):
         """
@@ -45,6 +53,10 @@ class Solution:
           True if it is full, else returns False.
         """
         # Write your code here
+        if len(self.stack)==self.size:
+            return True
+        else:
+            return False
 
     def is_queue_full(self):
         """
@@ -53,6 +65,11 @@ class Solution:
           True if it is full, else returns False.
         """
         # Write your code here
+        if self.rear==(self.size-1):
+            return True
+        else:
+            return False
+
 
     def push_character(self, character):
         """
@@ -61,6 +78,8 @@ class Solution:
             character: A character that will be pushed to the stack.
         """
         # Write your code here
+        if not self.is_stack_full():
+            self.stack.append(character)
 
     def enqueue_character(self, character):
         """
@@ -69,6 +88,8 @@ class Solution:
             character: A character that will be enqueued to queue.
         """
         # Write your code here
+        if not self.is_queue_full():
+            self.queue.append(character)
 
     def pop_character(self):
         """
@@ -77,6 +98,8 @@ class Solution:
           The data that is popped out if the stack is not empty.
         """
         # Write your code here
+        if not self.is_stack_empty():
+            self.stack.pop()
 
     def dequeue_character(self):
         """
@@ -85,6 +108,8 @@ class Solution:
           The data that is dequeued if the queue is not empty.
         """
         # Write your code here
+        if not self.is_queue_empty():
+            self.queue.pop(0)
 
 
 # read the string text
@@ -97,8 +122,9 @@ length_of_text = len(text)
 solution = Solution(length_of_text)
 
 # push/enqueue all the characters of string text to stack
-for index in range(length_of_text):
-    # Write code here
+for char in text:
+    solution.push_character(char)
+    solution.enqueue_character(char)
 
 is_palindrome = True
 '''
@@ -108,7 +134,14 @@ compare both characters
 If the comparison fails, set is_palindrome as False.
 '''
 # Write the necessary logic
-
+for x in range(length_of_text):
+    a=solution.pop_character()
+    b=solution.dequeue_character()
+    if a==b:
+        is_palindrome = True
+    else:
+        is_palindrome = False
+        break
 
 # finally print whether string text is palindrome or not.
 if is_palindrome:
