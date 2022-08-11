@@ -78,8 +78,9 @@ class Solution:
             character: A character that will be pushed to the stack.
         """
         # Write your code here
-        if not self.is_stack_full():
+        if self.is_stack_full()==False:
             self.stack.append(character)
+            self.top+=1
 
     def enqueue_character(self, character):
         """
@@ -88,7 +89,7 @@ class Solution:
             character: A character that will be enqueued to queue.
         """
         # Write your code here
-        if not self.is_queue_full():
+        if self.is_queue_full()==False:
             self.queue.append(character)
 
     def pop_character(self):
@@ -98,8 +99,10 @@ class Solution:
           The data that is popped out if the stack is not empty.
         """
         # Write your code here
-        if not self.is_stack_empty():
-            self.stack.pop()
+        if self.is_stack_empty()==False:
+            data = self.stack.pop()
+            self.top-=1
+            return data
 
     def dequeue_character(self):
         """
@@ -108,8 +111,9 @@ class Solution:
           The data that is dequeued if the queue is not empty.
         """
         # Write your code here
-        if not self.is_queue_empty():
-            self.queue.pop(0)
+        if self.is_queue_empty()==False:
+            data_= self.queue.pop(0)
+            return data_
 
 
 # read the string text
@@ -117,6 +121,11 @@ text = input()
 
 # find the length of text
 length_of_text = len(text)
+
+if len(text)%2==0:
+    c = len(text)
+else:
+    c = (len(text)//2)+1
 
 # Create the Solution class object
 solution = Solution(length_of_text)
@@ -126,7 +135,7 @@ for char in text:
     solution.push_character(char)
     solution.enqueue_character(char)
 
-is_palindrome = True
+is_palindrome = False
 '''
 pop the top character from stack
 dequeue the first character from queue
@@ -134,15 +143,15 @@ compare both characters
 If the comparison fails, set is_palindrome as False.
 '''
 # Write the necessary logic
-for x in range(length_of_text):
+for x in range(c):
     a=solution.pop_character()
     b=solution.dequeue_character()
-    if a==b:
-        is_palindrome = True
-    else:
-        is_palindrome = False
-        break
 
+    if a==b:
+        is_palindrome=True
+    else:
+        is_palindrome=False
+        break
 # finally print whether string text is palindrome or not.
 if is_palindrome:
     print("The word, " + text + ", is a palindrome.")
